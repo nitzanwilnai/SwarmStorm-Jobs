@@ -22,6 +22,11 @@ namespace Swarm
 
         public SpriteRenderer[] Enemies;
         public Transform[] EnemyTransforms;
+        public FrameAnimation[] FrameAnimations;
+
+        public int FrameTime;
+        float m_time;
+        int m_counter;
 
         // Start is called before the first frame update
         public void Init(Camera mainCamera)
@@ -33,11 +38,13 @@ namespace Swarm
         {
             Enemies = new SpriteRenderer[gameData.EnemyCount];
             EnemyTransforms = new Transform[gameData.EnemyCount];
+            FrameAnimations = new FrameAnimation[gameData.EnemyCount];
             for (int i = 0; i < gameData.EnemyCount; i++)
             {
                 SpriteRenderer enemy = Instantiate(SwarmPrefab, SwarmParent).GetComponent<SpriteRenderer>();
                 Enemies[i] = enemy;
                 EnemyTransforms[i] = enemy.transform;
+                FrameAnimations[i] = enemy.GetComponent<FrameAnimation>();
             }
         }
 
@@ -58,8 +65,14 @@ namespace Swarm
         void syncVisuals(GameData gameData)
         {
             Player.transform.localPosition = Vec2.ToVector3(gameData.PlayerPos);
-            //for (int i = 0; i < gameData.EnemyCount; i++)
-            //    Enemies[i].transform.localPosition = Vec2.ToVector3(gameData.EnemyPos[i]);
+
+            m_time += Time.deltaTime;
+            if (m_time > FrameTime)
+            {
+                m_time -= FrameTime;
+                for (int i = 0; i < gameData.EnemyCount; i++)
+                    FrameAnimations[i].FrameChanged();
+            }
         }
 
         void handleInput(GameData gameData)

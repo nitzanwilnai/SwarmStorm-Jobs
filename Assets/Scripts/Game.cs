@@ -29,6 +29,8 @@ namespace Swarm
         // Start is called before the first frame update
         void Start()
         {
+            m_balance.LoadBalance();
+
             BoardVisual.Init(MainCamera);
             MenuState = MENU_STATE.IN_GAME;
             BoardLogic.Allocate(m_gameData, m_balance);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MokiMerge
+namespace CommonTools
 {
     public class Notch : MonoBehaviour
     {

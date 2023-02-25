@@ -839,6 +839,8 @@ MonoBehaviour:
   SwarmParent: {fileID: 2046348400}
   Enemies: []
   EnemyTransforms: []
+  FrameAnimations: []
+  FrameTime: 1
 --- !u!1 &977366033
 GameObject:
   m_ObjectHideFlags: 0

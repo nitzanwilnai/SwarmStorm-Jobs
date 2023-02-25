@@ -52,7 +52,7 @@ namespace Swarm
 
         public static void Allocate(GameData gameData, Balance balance)
         {
-            gameData.EnemyCount = balance.NumEnemies;
+            gameData.EnemyCount = balance.MaxEnemies;
             gameData.EnemyPos = new Vec2[gameData.EnemyCount];
             gameData.EnemyCurrentDir = new Vec2[gameData.EnemyCount];
             gameData.EnemyTargetDir = new Vec2[gameData.EnemyCount];
@@ -65,7 +65,7 @@ namespace Swarm
             gameData.PlayerPos = Vec2.Zero();
             for (int i = 0; i < gameData.EnemyCount; i++)
             {
-                gameData.EnemyPos[i] = new Vec2(RandFloat(ref seed) * 8.0f - 4.0f, RandFloat(ref seed) * 8.0f - 4.0f);
+                gameData.EnemyPos[i] = new Vec2(RandFloat(ref seed) * 4.0f - 2.0f, RandFloat(ref seed) * 4.0f - 2.0f);
                 gameData.EnemyCurrentDir[i] = gameData.EnemyTargetDir[i] = (gameData.PlayerPos - gameData.EnemyPos[i]).Normal();
                 gameData.EnemySpeed[i] = RandFloat(ref seed) * (balance.MaxEnemySpeed - balance.MinEnemySpeed) + balance.MinEnemySpeed;
                 gameData.EnemyRotation[i] = RandFloat(ref seed) * (balance.MaxEnemyRotation - balance.MinEnemyRotation) + balance.MinEnemyRotation;

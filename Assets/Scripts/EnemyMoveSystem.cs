@@ -13,7 +13,6 @@ namespace Swarm
             // Jobs declare all data that will be accessed in the job
             // By declaring it as read only, multiple jobs are allowed to access the data in parallel        
             [ReadOnly]
-            //public NativeArray<Vector3> velocity;
             public NativeArray<Vector3> newPos;
 
             // Delta time must be copied to the job since jobs generally don't have a concept of a frame.
@@ -24,11 +23,6 @@ namespace Swarm
             // The code actually running on the job
             public void Execute(int index, TransformAccess transform)
             {
-                //// Move the transforms based on delta time and velocity
-                //var pos = transform.position;
-                //pos += velocity[index] * deltaTime;
-                //transform.position = pos;
-
                 transform.position = newPos[index];
             }
         }
@@ -36,13 +30,6 @@ namespace Swarm
         // Assign transforms in the inspector to be acted on by the job
         [SerializeField] public Transform[] m_Transforms;
         TransformAccessArray m_AccessArray;
-
-        void Awake()
-        {
-            // Store the transforms inside a TransformAccessArray instance,
-            // so that the transforms can be accessed inside a job.
-            //m_AccessArray = new TransformAccessArray(m_Transforms);
-        }
 
         public void InitTransforms(Transform[] transforms)
         {
@@ -79,8 +66,6 @@ namespace Swarm
             // since that reduces the chance of having other jobs run in parallel with this one.
             // You optimally want to schedule a job early in a frame and then wait for it later in the frame.        
             jobHandle.Complete();
-
-            //Debug.Log(m_Transforms[0].position);
 
             // Native arrays must be disposed manually.
             newPos.Dispose();

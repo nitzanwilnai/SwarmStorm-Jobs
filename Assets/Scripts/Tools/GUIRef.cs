@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace MokiMerge
+namespace CommonTools
 {
     [Serializable]
     public struct GUIRefGameObject
